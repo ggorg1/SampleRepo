@@ -1,0 +1,39 @@
+public class TestEnvironment {
+    public void makeRestCallout() {
+        // Define the endpoint URL
+        String endpointUrl = 'https://api.example.com/';
+        String endpointurl1 = '';
+        // Create an HTTP request object
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(endpointUrl);
+        request.setMethod('GET');
+
+        // Set request headers if needed
+        // request.setHeader('HeaderName', 'HeaderValue');
+
+        // Create an HTTP object to send the request
+        Http http = new Http();
+        HttpResponse response = null;
+
+        try {
+            // Send the request
+            response = http.send(request);
+        } catch (Exception ex) {
+            System.debug('Error occurred during the REST callout: ' + ex.getMessage());
+        }
+
+        // Process the response
+        if (response != null) {
+            // Check the response status code
+            if (response.getStatusCode() == 200) {
+                // Successful callout, process the response body
+                String responseBody = response.getBody();
+                // Process the response as needed
+                System.debug('Response received: ' + responseBody);
+            } else {
+                // Callout failed, log the error
+                System.debug('REST callout failed with status code: ' + response.getStatusCode());
+            }
+        }
+    }
+}
